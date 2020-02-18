@@ -6,13 +6,13 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 17:03:41 by tclarita          #+#    #+#             */
-/*   Updated: 2019/11/21 22:51:39 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:47:59 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	itoa_isnegative11(int *n, int *negative)
+void	itoa_isnegative11(long long *n, int *negative)
 {
 	if (*n < 0)
 	{
@@ -21,12 +21,12 @@ void	itoa_isnegative11(int *n, int *negative)
 	}
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long n)
 {
-	int		tmpn;
-	int		len;
-	int		negative;
-	char	*str;
+	long long		tmpn;
+	long long		len;
+	int				negative;
+	char			*str;
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));

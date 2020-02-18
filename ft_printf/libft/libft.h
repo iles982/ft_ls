@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 17:01:37 by tclarita          #+#    #+#             */
-/*   Updated: 2019/12/09 16:09:28 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/01/17 19:20:19 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long n);
 int					ft_countwords(char const *str, char c);
 int					ft_int_len(int nb);
 char				*ft_strrev(char *str);

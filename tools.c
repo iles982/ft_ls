@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 22:46:23 by vinograd          #+#    #+#             */
-/*   Updated: 2019/12/12 13:48:23 by tclarita         ###   ########.fr       */
+/*   Created: 2020/02/17 19:02:09 by tclarita          #+#    #+#             */
+/*   Updated: 2020/02/18 01:54:57 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_ls.h"
 
-# define BUFF_SIZE 1
-# include "libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+void	ft_free(t_data *data)
+{
+	while (data->next)
+	{
+		free(data->name);
+		free(data->mode);
+		free(data->time);
+		free(data->usid);
+		free(data->grid);
+		free(data);
+		data = data->next;
+	}
+}
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+void	init_flags(t_flags *flags)
+{
+	flags->i = 0;
+	flags->l = 0;
+	flags->a = 0;
+	flags->t = 0;
+	flags->r = 0;
+	flags->rr = 0;
+}

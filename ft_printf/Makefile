@@ -5,43 +5,44 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/13 17:58:58 by tclarita          #+#    #+#              #
-#    Updated: 2020/02/18 14:08:01 by tclarita         ###   ########.fr        #
+#    Created: 2019/11/21 17:52:57 by tclarita          #+#    #+#              #
+#    Updated: 2020/02/03 06:22:21 by tclarita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ls
+NAME = libftprintf.a
 
-SRC = ft_ls.c parse.c get_flags.c tools.c
+SRC = tools.c tools_2.c tools_3.c ft_printf.c flags.c c.c int.c o.c p.c s.c \
+checks.c u.c x.c xx.c tools_4.c tools_5.c int_2.c f.c f_2.c
 
-OBJ = $(SRC:.c=.o)
+OFILES = $(SRC:.c=.o)
 
-HEADER = ft_ls.h
+HEADER = ft_printf.h
 
-FLAGS = -Wall -Werror -Wextra -I $(HEADER)
-LIBFT = ft_printf
-COLOR = \033[2;14m
+FLAGS = -Wall -Werror -Wextra
 
-.PHONY: all clean fclean re
+LIBFT = libft
+
+.PHONY: clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(SRC)
+$(NAME): $(OFILES) $(SRC)
 		@make -C $(LIBFT)
-		@gcc -c $(SRC)
-		@gcc -o $(NAME) $(FLAGS) $(OBJ) ft_printf/libftprintf.a
-		@make clean -silent
-		@echo "$(COLOR)Lem_in successfully compiled"
+		@cp libft/libft.a ./$(NAME)
+		gcc -c $(SRC) -I $(HEADER) $(FLAGS)
+		ar rc $(NAME) $(OFILES)
+		ranlib $(NAME)
 
 %.o : %.c
 		@echo "$(NAME) >>> Add/Update $^"
 
 clean:
-		@rm -rf $(OBJ)
-		@make clean -C $(LIBFT)
+	@rm -f $(OFILES)
+	@make clean -C $(LIBFT)
 
 fclean: clean
-		@rm -rf $(NAME)
-		@make fclean -C $(LIBFT)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
