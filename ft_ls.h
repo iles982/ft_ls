@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/18 14:06:15 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:41:21 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,16 @@ typedef struct		s_flags
 	int				r;
 	int				rr;
 	int				i;
+	long int		max_len_group;
+	long int		max_len_owner;
+	long int		max_len_links;
+	long int		max_len_size;
+	long int		max_len_name;
 }					t_flags;
 
 typedef struct		s_ls
 {
-    DIR				*dir;
+	DIR				*dir;
 	struct dirent	*name;
 	struct stat		*stat;
 	long long		blocks;
@@ -45,6 +50,7 @@ typedef struct		s_ls
 typedef struct		s_data
 {
 	struct s_data	*next;
+	time_t			time_t;
 	char			*name;
 	char			*time;
 	char			*mode;
@@ -54,8 +60,12 @@ typedef struct		s_data
 	long int		size;
 }					t_data;
 
-t_data	*parse(t_ls *ls, t_data *data, char *file_name);
+t_data	*parse(t_ls *ls, t_data *data, char *file_name, t_flags *flags);
 void	ft_free(t_data *data);
 void	get_flags(t_flags *flags, char **str);
 void	init_flags(t_flags *flags);
+void	check_len(t_data *data, t_flags *flags);
+void	parse_data(t_data *data, t_ls *ls, t_flags *flags);
+void	ft_lstrev(t_data **alst);
+t_data	*sort_t(t_data *data, t_flags *flags);
 #endif

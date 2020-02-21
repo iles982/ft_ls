@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:50:39 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/18 14:07:32 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:13:08 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	get_flags(t_flags *flags, char **str)
 		ft_printf("%s\n", "ft_ls: -: No such file or directory");
 		return ;
 	}
-	while (str[flags->i][0] == '-')
+	while (str[flags->i] && str[flags->i][0] == '-')
 	{
 		check_flag(flags, str[flags->i]);
 		flags->i++;
