@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/21 16:41:21 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:31:10 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_ls
 	struct dirent	*name;
 	struct stat		*stat;
 	long long		blocks;
+	int				i;
 }					t_ls;
 
 typedef struct		s_data
@@ -60,12 +61,15 @@ typedef struct		s_data
 	long int		size;
 }					t_data;
 
-t_data	*parse(t_ls *ls, t_data *data, char *file_name, t_flags *flags);
+void	parse(t_ls *ls, t_data **data, char *file_name, t_flags *flags);
 void	ft_free(t_data *data);
 void	get_flags(t_flags *flags, char **str);
 void	init_flags(t_flags *flags);
 void	check_len(t_data *data, t_flags *flags);
 void	parse_data(t_data *data, t_ls *ls, t_flags *flags);
-void	ft_lstrev(t_data **alst);
-t_data	*sort_t(t_data *data, t_flags *flags);
+void	ft_lstrev(t_data ***alst);
+
+t_data		*reverse(t_data *start);
+void		sort_files_t(t_data **arr, int max);
+t_data		*revive_files(t_data **arr);
 #endif

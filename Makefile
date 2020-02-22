@@ -6,13 +6,13 @@
 #    By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/13 17:58:58 by tclarita          #+#    #+#              #
-#    Updated: 2020/02/20 02:44:08 by tclarita         ###   ########.fr        #
+#    Updated: 2020/02/21 22:31:20 by tclarita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
-SRC = ft_ls.c parse.c get_flags.c tools.c tools_2.c
+SRC = ft_ls.c parse.c get_flags.c tools.c tools_2.c sort.c
 
 OBJ = $(SRC:.c=.o)
 

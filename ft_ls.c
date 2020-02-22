@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:58:50 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/21 20:08:18 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:21:36 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	do_arg(t_flags *flags, char *str)
 {
 	t_ls		*ls;
-	t_data		*data;
+	t_data		**data;
 	t_data		*start;
 
-	
+	data = (t_data **)malloc(sizeof(t_data *) * 1000);
 	ls = (t_ls *)malloc(sizeof(t_ls));
-	data = parse(ls, data, str, flags);
+	ls->i = 0;
+	ls->blocks = 0;
+	parse(ls, data, str, flags);
 	free(ls);
 }
 
