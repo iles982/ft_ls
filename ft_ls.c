@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:58:50 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/21 22:21:36 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/23 01:54:53 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	do_arg(t_flags *flags, char *str)
 
 int		main(int ac, char **av)
 {
-	t_data		*start;
-	t_flags		flags[1];
+	t_data			*start;
+	t_flags			flags[1];
 	struct winsize	ws;
 
 	init_flags(flags);
@@ -44,8 +44,5 @@ int		main(int ac, char **av)
 			write(1, "\n", 1);
 			flags->i++;
 		}
-	// ioctl(0, TIOCGWINSZ, &ws);
-	// ft_printf ("lines %d\n", ws.ws_row);
-    // ft_printf ("columns %d\n\n\n", ws.ws_col);
 	return (0);
 }

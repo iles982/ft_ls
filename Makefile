@@ -6,7 +6,7 @@
 #    By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/13 17:58:58 by tclarita          #+#    #+#              #
-#    Updated: 2020/02/21 22:31:20 by tclarita         ###   ########.fr        #
+#    Updated: 2020/02/23 00:58:30 by tclarita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ) $(SRC)
 		@gcc -c $(SRC)
 		@gcc -o $(NAME) $(FLAGS) $(OBJ) ft_printf/libftprintf.a
 		@make clean -silent
-		@echo "$(COLOR)Lem_in successfully compiled"
+		@echo "$(COLOR)FT_LS successfully compiled"
 
 %.o : %.c
 		@echo "$(NAME) >>> Add/Update $^"
