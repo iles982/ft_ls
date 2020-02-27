@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/21 22:31:10 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/27 08:34:25 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct		s_ls
 	struct stat		*stat;
 	long long		blocks;
 	int				i;
+	int				d;
+	char			*dir_name;
 }					t_ls;
 
 typedef struct		s_data
@@ -61,15 +63,14 @@ typedef struct		s_data
 	long int		size;
 }					t_data;
 
-void	parse(t_ls *ls, t_data **data, char *file_name, t_flags *flags);
-void	ft_free(t_data *data);
 void	get_flags(t_flags *flags, char **str);
 void	init_flags(t_flags *flags);
-void	check_len(t_data *data, t_flags *flags);
+void	check_len(t_data data, t_flags *flags);
 void	parse_data(t_data *data, t_ls *ls, t_flags *flags);
-void	ft_lstrev(t_data ***alst);
+void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path);
 
-t_data		*reverse(t_data *start);
-void		sort_files_t(t_data **arr, int max);
-t_data		*revive_files(t_data **arr);
+void		sort_files_t(t_data *arr, int max, t_ls *ls);
+
+
+void	new_parse(t_flags *flags, char *path);
 #endif

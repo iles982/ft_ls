@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:43:17 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/21 20:35:37 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/27 08:25:16 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_usid(uid_t st_uid)
 	uid = getpwuid(st_uid);
 	tmp = ft_strnew(ft_strlen(uid->pw_name));
 	tmp = ft_strcpy(tmp, uid->pw_name);
-	return(tmp);
+	return (tmp);
 }
 
 char	*get_grid(gid_t gid)
@@ -71,18 +71,18 @@ char	*get_grid(gid_t gid)
 	grid = getgrgid(gid);
 	tmp = ft_strnew(ft_strlen(grid->gr_name));
 	tmp = ft_strcpy(tmp, grid->gr_name);
-	return(tmp);
+	return (tmp);
 }
 
 void	parse_data(t_data *data, t_ls *ls, t_flags *flags)
 {
 	data->mode = get_st_mode(ls->stat->st_mode);
-	data->link = ls->stat->st_nlink;
 	data->usid = get_usid(ls->stat->st_uid);
 	data->grid = get_grid(ls->stat->st_gid);
-	data->size = ls->stat->st_size;
 	data->time = get_time(ctime(&(ls->stat->st_mtimespec.tv_sec)));
 	data->name = ft_strdup(ls->name->d_name);
+	data->size = ls->stat->st_size;
+	data->link = ls->stat->st_nlink;
 	data->time_t = ls->stat->st_mtimespec.tv_sec;
-	check_len(data, flags);
+	check_len(*data, flags);
 }

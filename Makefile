@@ -6,7 +6,7 @@
 #    By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/13 17:58:58 by tclarita          #+#    #+#              #
-#    Updated: 2020/02/23 00:58:30 by tclarita         ###   ########.fr        #
+#    Updated: 2020/02/26 07:25:11 by tclarita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(SRC)
 		@make -C $(LIBFT)
 		@gcc -c $(SRC)
-		@gcc -o $(NAME) $(FLAGS) $(OBJ) ft_printf/libftprintf.a
+		@gcc -o $(NAME) $(FLAGS) $(OBJ) ft_printf/libftprintf.a -g
 		@make clean -silent
 		@echo "$(COLOR)FT_LS successfully compiled"
 

@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:58:50 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/23 01:54:53 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/25 21:32:42 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ void	do_arg(t_flags *flags, char *str)
 	t_data		**data;
 	t_data		*start;
 
-	data = (t_data **)malloc(sizeof(t_data *) * 1000);
-	ls = (t_ls *)malloc(sizeof(t_ls));
-	ls->i = 0;
-	ls->blocks = 0;
-	parse(ls, data, str, flags);
-	free(ls);
+	new_parse(flags, str);
 }
 
 int		main(int ac, char **av)
@@ -35,7 +30,7 @@ int		main(int ac, char **av)
 	init_flags(flags);
 	if (ac != 1 && av[1][0] == '-')
 		get_flags(flags, av);
-	if(ac == flags->i)
+	if (ac == flags->i)
 		do_arg(flags, ".");
 	else
 		while (ac > flags->i)
