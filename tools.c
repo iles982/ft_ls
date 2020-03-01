@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:02:09 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 02:45:08 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 05:00:36 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ char	*return_path(char *path)
 
 	i = 0;
 	k = 0;
-	// if (ft_strcmp(path, "./") == 0)
-	// 	return (path);
+	if (ft_strcmp(path, "./") == 0)
+		return (path);
 	while (path[i])
 	{
 		if (path[i] == '/')

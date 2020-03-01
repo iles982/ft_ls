@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:58:50 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 02:08:11 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 04:29:52 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	do_arg(t_flags *flags, char *tmp)
 	t_data		*start;
 	char		*str;
 
-	str = ft_strdup(tmp);
+	str = tmp;
 	new_parse(flags, str);
 }
 

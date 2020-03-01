@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:00:58 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 03:29:30 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 05:01:05 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,17 @@ void	print_all(t_data *data, t_flags *flags, t_ls *ls)
 		just_print(data, flags, ls);
 }
 
+char	*get_path(char *path, char *name)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strjoin(path, "/");
+	tmp2 = ft_strjoin(tmp, name);
+	free(tmp);
+	return (tmp2);
+}
+
 void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path)
 {
 	struct stat		stat1;
@@ -106,8 +117,7 @@ void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path)
 		if (name->d_name[0] < 91)
 			if ((name->d_name[0] == '.' && flags->a == 1) || name->d_name[0] != '.')
 			{
-				path1 = ft_strjoin(path, "/");
-				path1 = ft_strjoin(path1, name->d_name);
+				path1 = get_path(path, name->d_name);
 				stat(path1, &stat1);
 				parse_data(&data[ls->i + ls->d], &stat1, flags, name);
 				ft_printf("%s %3d %s  %s %6d %s %s\n", data[ls->i + ls->d].mode, data[ls->i + ls->d].link, data[ls->i + ls->d].usid, data[ls->i + ls->d].grid,
@@ -121,8 +131,7 @@ void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path)
 	while ((name = readdir(ls->dir)))
 		if (name->d_name[0] > 90)
 		{
-			path1 = ft_strjoin(path, "/");
-			path1 = ft_strjoin(path1, name->d_name);
+			path1 = get_path(path, name->d_name);
 			stat(path1, &stat1);
 			parse_data(&data[ls->i + ls->d], &stat1, flags, name);
 			ft_printf("%s %3d %s  %s %6d %s %s\n", data[ls->i + ls->d].mode, data[ls->i + ls->d].link, data[ls->i + ls->d].usid, data[ls->i + ls->d].grid,
@@ -134,6 +143,18 @@ void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path)
 		ls->d += ls->i;
 		ls->b = ls->i;
 	closedir(ls->dir);
+}
+
+char	*get_path_2(char *path, char *name, t_ls *ls)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strjoin(path, "/");
+	tmp2 = ft_strjoin(tmp, name);
+	free(tmp);
+	free(path);
+	return (tmp2);
 }
 
 void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
@@ -149,7 +170,7 @@ void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 		return ;
 	}
 	i = 0;
-	make_ls(data, ls, flags, path);
+	make_ls(data, ls, flags, ls->path);
 	d = ls->d - ls->b;
 	ls->a = d;
 	// print_all(data, flags, ls);
@@ -162,15 +183,15 @@ void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 			i++;
 		if (i > count)
 			return ;
-		path = ft_strjoin(path, "/");
-		path = ft_strjoin(path, data[i + d].name);
+		// path = get_path(path, data[i + d].name);
+		ls->path = get_path_2(ls->path, data[i + d].name, ls);
 		ls->i = 0;
-		ft_printf("%s:\n", path);
-		make_cycle(data, ls, flags, path);
-		path = return_path(path);
+		ft_printf("%s:\n", ls->path);
+		make_cycle(data, ls, flags, ls->path);
+		ls->path = return_path(ls->path);
 		i++;
 	}
-	free(path);
+	// free(path);
 }
 
 void	new_parse(t_flags *flags, char *path)
@@ -178,6 +199,7 @@ void	new_parse(t_flags *flags, char *path)
 	t_data	*data;
 	t_ls	*ls;
 	int		i;
+	char	*path1;
 
 	data = (t_data *)malloc(sizeof(t_data) * 1000000);
 	ls = (t_ls *)malloc(sizeof(t_ls));
@@ -186,6 +208,7 @@ void	new_parse(t_flags *flags, char *path)
 	ls->a = 0;
 	ls->blocks = 0;
 	i = 0;
+	ls->path = ft_strdup(path);
 	if (flags->rr == 1)
 	{
 		make_cycle(data, ls, flags, path);
@@ -201,6 +224,7 @@ void	new_parse(t_flags *flags, char *path)
 		ft_putnbr(i);
 		write(1, "\n", 1);
 		free(data);
+		free(ls->path);
 		free(ls);
 	}
 	else

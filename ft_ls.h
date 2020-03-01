@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/29 22:05:13 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 04:57:39 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_ls
 	int				z;
 	int				a;
 	int				b;
+	char			*path;
 }					t_ls;
 
 typedef struct		s_data
