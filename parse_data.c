@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools_2.c                                          :+:      :+:    :+:   */
+/*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:43:17 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/27 08:25:16 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/02/29 08:36:36 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,17 @@ char	*get_usid(uid_t st_uid)
 	char			*tmp;
 
 	uid = getpwuid(st_uid);
-	tmp = ft_strnew(ft_strlen(uid->pw_name));
-	tmp = ft_strcpy(tmp, uid->pw_name);
+	if (uid == NULL)
+	{
+		tmp = ft_strnew(2);
+		tmp[0] = '0';
+		tmp[1] = '\0';
+	}
+	else
+	{
+		tmp = ft_strnew(ft_strlen(uid->pw_name));
+		tmp = ft_strcpy(tmp, uid->pw_name);
+	}
 	return (tmp);
 }
 
@@ -74,15 +83,16 @@ char	*get_grid(gid_t gid)
 	return (tmp);
 }
 
-void	parse_data(t_data *data, t_ls *ls, t_flags *flags)
+void	parse_data(t_data *data, struct stat *stat, t_flags *flags, struct dirent *name)
 {
-	data->mode = get_st_mode(ls->stat->st_mode);
-	data->usid = get_usid(ls->stat->st_uid);
-	data->grid = get_grid(ls->stat->st_gid);
-	data->time = get_time(ctime(&(ls->stat->st_mtimespec.tv_sec)));
-	data->name = ft_strdup(ls->name->d_name);
-	data->size = ls->stat->st_size;
-	data->link = ls->stat->st_nlink;
-	data->time_t = ls->stat->st_mtimespec.tv_sec;
+	data->mode = get_st_mode(stat->st_mode);
+	data->grid = get_grid(stat->st_gid);
+	data->time = get_time(ctime(&(stat->st_mtimespec.tv_sec)));
+	data->name = ft_strdup(name->d_name);
+	data->size = stat->st_size;
+	data->link = stat->st_nlink;
+	data->time_t = stat->st_mtimespec.tv_sec;
+	data->usid = get_usid(stat->st_uid);
+	// ft_printf("%s %6d %10s %10s %6d %s %s\n", data->mode, data->link, data->usid, data->grid, data->size, data->time, data->name);
 	check_len(*data, flags);
 }

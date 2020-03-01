@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:02:09 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/25 20:36:22 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 02:45:08 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,24 @@ void	check_len(t_data data, t_flags *flags)
 		flags->max_len_name = ft_strlen(data.name) + 1;
 }
 
-void		ft_lstrev(t_data ***alst)
+char	*return_path(char *path)
 {
-	t_data	*prev;
-	t_data	*cur;
-	t_data	*next;
+	int		i;
+	int		k;
+	char	*tmp;
 
-	prev = NULL;
-	cur = **alst;
-	while (cur != NULL)
+	i = 0;
+	k = 0;
+	// if (ft_strcmp(path, "./") == 0)
+	// 	return (path);
+	while (path[i])
 	{
-		next = cur->next;
-		cur->next = prev;
-		prev = cur;
-		cur = next;
+		if (path[i] == '/')
+			k = i;
+		i++;
 	}
-	**alst = prev;
+	tmp = ft_strnew(k);
+	tmp = ft_strncpy(tmp, path, k);
+	free(path);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:00:58 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/27 08:34:53 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 03:29:30 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		get_columns(t_flags *flags)
 	return (columns);
 }
 
-
 void	print_l(t_data *data, t_flags *flags, t_ls *ls)
 {
 	int		n;
@@ -43,24 +42,14 @@ void	print_l(t_data *data, t_flags *flags, t_ls *ls)
 		{
 			ft_printf("%s %3d %s  %s %6d %s %s\n", data[ls->i].mode, data[ls->i].link, data[ls->i].usid, data[ls->i].grid,
 			data[ls->i].size, data[ls->i].time, data[ls->i].name);
-			// free(data[ls->i].name);
-			// free(data[ls->i].grid);
-			// free(data[ls->i].usid);
-			// free(data[ls->i].mode);
-			// free(data[ls->i].time);
 			ls->i--;
 		}
 	}
 	else
-		while (n < ls->i)
+		while (data[n + ls->a].name)
 		{
-			ft_printf("%s %3d %s  %s %6d %s %s\n", data[n].mode, data[n].link, data[n].usid, data[n].grid,
-			data[n].size, data[n].time, data[n].name);
-			// free(data[n].name);
-			// free(data[n].grid);
-			// free(data[n].usid);
-			// free(data[n].mode);
-			// free(data[n].time);
+			ft_printf("%s %6d %10s  %10s %6d %s %s\n", data[n + ls->a].mode, data[n + ls->a].link, data[n + ls->a].usid, data[n + ls->a].grid,
+			data[n + ls->a].size, data[n + ls->a].time, data[n + ls->a].name);
 			n++;
 		}
 }
@@ -109,59 +98,50 @@ void	print_all(t_data *data, t_flags *flags, t_ls *ls)
 
 void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path)
 {
-	ls->i = 0;
-	ls->blocks = 0;
-	while ((ls->name = readdir(ls->dir)))
-		if (ls->name->d_name[0] < 91)
-			if ((ls->name->d_name[0] == '.' && flags->a == 1) || ls->name->d_name[0] != '.')
+	struct stat		stat1;
+	struct dirent	*name;
+	char			*path1;
+
+	while ((name = readdir(ls->dir)))
+		if (name->d_name[0] < 91)
+			if ((name->d_name[0] == '.' && flags->a == 1) || name->d_name[0] != '.')
 			{
-				ls->stat = (struct stat *)malloc(sizeof(struct stat));
-				lstat(ls->name->d_name, ls->stat);
-				parse_data(&data[ls->i], ls, flags);
-				free(ls->stat);
-				ls->blocks += ls->stat->st_blocks;
+				path1 = ft_strjoin(path, "/");
+				path1 = ft_strjoin(path1, name->d_name);
+				stat(path1, &stat1);
+				parse_data(&data[ls->i + ls->d], &stat1, flags, name);
+				ft_printf("%s %3d %s  %s %6d %s %s\n", data[ls->i + ls->d].mode, data[ls->i + ls->d].link, data[ls->i + ls->d].usid, data[ls->i + ls->d].grid,
+				data[ls->i + ls->d].size, data[ls->i + ls->d].time, data[ls->i + ls->d].name);
+				ls->blocks += stat1.st_blocks;
 				ls->i++;
+				free(path1);
 			}
 	closedir(ls->dir);
 	ls->dir = opendir(path);
-	while ((ls->name = readdir(ls->dir)))
-		if (ls->name->d_name[0] > 90)
+	while ((name = readdir(ls->dir)))
+		if (name->d_name[0] > 90)
 		{
-			ls->stat = (struct stat *)malloc(sizeof(struct stat));
-			lstat(ls->name->d_name, ls->stat);
-			parse_data(&data[ls->i], ls, flags);
-			free(ls->stat);
-			ls->blocks += ls->stat->st_blocks;
+			path1 = ft_strjoin(path, "/");
+			path1 = ft_strjoin(path1, name->d_name);
+			stat(path1, &stat1);
+			parse_data(&data[ls->i + ls->d], &stat1, flags, name);
+			ft_printf("%s %3d %s  %s %6d %s %s\n", data[ls->i + ls->d].mode, data[ls->i + ls->d].link, data[ls->i + ls->d].usid, data[ls->i + ls->d].grid,
+			data[ls->i + ls->d].size, data[ls->i + ls->d].time, data[ls->i + ls->d].name);
+			ls->blocks += stat1.st_blocks;
 			ls->i++;
+			free(path1);
 		}
+		ls->d += ls->i;
+		ls->b = ls->i;
 	closedir(ls->dir);
-}
-
-char	*return_path(char *path)
-{
-	int i;
-	int k;
-	char *tmp;
-
-	i = 0;
-	k = 0;
-	while (path[i])
-	{
-		if (path[i] == '/')
-			k = i;
-		i++;
-	}
-	tmp = ft_strnew(k);
-	tmp = ft_strncpy(tmp, path, k);
-	free(path);
-	return (tmp);
 }
 
 void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 {
 	int		i;
-	t_data	*new;
-	t_ls	*ls1;
+	int		d;
+	int		count;
+	char	*tmp;
 
 	if (!(ls->dir = opendir(path)))
 	{
@@ -170,35 +150,27 @@ void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 	}
 	i = 0;
 	make_ls(data, ls, flags, path);
-	print_all(data, flags, ls);
-	while (ls->i > i)
+	d = ls->d - ls->b;
+	ls->a = d;
+	// print_all(data, flags, ls);
+	write(1, "\n", 1);
+	count = ls->i - 1;
+	while (count >= i)
 	{
-		while (i < ls->i && ((data[i].mode[0] != 'd') || (ft_strcmp(data[i].name, ".") == 0) || (ft_strcmp(data[i].name, "..") == 0)))
+		while (i <= count && ((data[i + d].mode[0] != 'd') || (ft_strcmp((const char *)data[i + d].name, (const char *)".") == 0)
+		|| (ft_strcmp((const char *)data[i + d].name, (const char *)"..") == 0)))
 			i++;
-		if (i == ls->i)
+		if (i > count)
 			return ;
 		path = ft_strjoin(path, "/");
-		path = ft_strjoin(path, data[i].name);
-		ft_printf("\n%s:\n", path);
-		new = (t_data *)malloc(sizeof(t_data) * 100);
-		ls1 = (t_ls *)malloc(sizeof(t_ls));
-		ls1->i = 0;
-		ls1->blocks = 0;
-		make_cycle(new, ls1, flags, path);
+		path = ft_strjoin(path, data[i + d].name);
+		ls->i = 0;
+		ft_printf("%s:\n", path);
+		make_cycle(data, ls, flags, path);
 		path = return_path(path);
 		i++;
 	}
-	// i = 0;
-	// while (data[i].name)
-	// {
-	// 	free(data[i].name);
-	// 	free(data[i].usid);
-	// 	free(data[i].grid);
-	// 	free(data[i].mode);
-	// 	free(data[i].time);
-	// 	i++;
-	// }
-	
+	free(path);
 }
 
 void	new_parse(t_flags *flags, char *path)
@@ -207,13 +179,30 @@ void	new_parse(t_flags *flags, char *path)
 	t_ls	*ls;
 	int		i;
 
-	data = (t_data *)malloc(sizeof(t_data) * 100);
+	data = (t_data *)malloc(sizeof(t_data) * 1000000);
 	ls = (t_ls *)malloc(sizeof(t_ls));
 	ls->i = 0;
+	ls->d = 0;
+	ls->a = 0;
 	ls->blocks = 0;
 	i = 0;
 	if (flags->rr == 1)
+	{
 		make_cycle(data, ls, flags, path);
+		while (i < ls->d)
+		{
+			free(data[i].name);
+			free(data[i].usid);
+			free(data[i].grid);
+			free(data[i].time);
+			free(data[i].mode);
+			i++;
+		}
+		ft_putnbr(i);
+		write(1, "\n", 1);
+		free(data);
+		free(ls);
+	}
 	else
 	{
 		if (!(ls->dir = opendir(path)))
