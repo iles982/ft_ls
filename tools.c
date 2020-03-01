@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:02:09 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 05:00:36 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 06:04:10 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,24 @@ char	*return_path(char *path)
 	tmp = ft_strncpy(tmp, path, k);
 	free(path);
 	return (tmp);
+}
+
+char	*get_path(char *path, char *name)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strjoin(path, "/");
+	tmp2 = ft_strjoin(tmp, name);
+	free(tmp);
+	return (tmp2);
+}
+
+void	no_dir(char *path, t_data *data, t_ls *ls)
+{
+	ft_printf("ls: %s: No such file or directory", path);
+	free(data);
+	free(ls->path);
+	free(ls);
+	exit(0);
 }

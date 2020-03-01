@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:43:17 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/29 08:36:36 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 05:27:22 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ char	*get_grid(gid_t gid)
 	return (tmp);
 }
 
-void	parse_data(t_data *data, struct stat *stat, t_flags *flags, struct dirent *name)
+void	parse_data(t_data *data, struct stat *stat, t_flags *flags,
+					struct dirent *name)
 {
 	data->mode = get_st_mode(stat->st_mode);
 	data->grid = get_grid(stat->st_gid);
@@ -93,6 +94,5 @@ void	parse_data(t_data *data, struct stat *stat, t_flags *flags, struct dirent *
 	data->link = stat->st_nlink;
 	data->time_t = stat->st_mtimespec.tv_sec;
 	data->usid = get_usid(stat->st_uid);
-	// ft_printf("%s %6d %10s %10s %6d %s %s\n", data->mode, data->link, data->usid, data->grid, data->size, data->time, data->name);
 	check_len(*data, flags);
 }

@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 04:57:39 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 07:35:35 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 # include <time.h>
 # include <pwd.h>
 # include <grp.h>
+
+typedef struct		s_column
+{
+	int				columns1;
+	int				columns;
+	int				lines1;
+	int				lines;
+	int				count;
+}					t_column;
 
 typedef struct		s_flags
 {
@@ -69,9 +78,12 @@ void	init_flags(t_flags *flags);
 void	check_len(t_data data, t_flags *flags);
 void	parse_data(t_data *data, struct stat *stat, t_flags *flags, struct dirent *name);
 void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path);
-
-void		sort_files_t(t_data *arr, int max, t_ls *ls);
-char		*return_path(char *path);
-
+void	sort_files_t(t_data *arr, int max, t_ls *ls);
+char	*return_path(char *path);
+char	*get_path(char *path, char *name);
 void	new_parse(t_flags *flags, char *path);
+void	print_all(t_data *data, t_flags *flags, t_ls *ls);
+void	make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path);
+void	no_dir(char *path, t_data *data, t_ls *ls);
+char	*get_path_2(char *path, char *name, t_ls *ls);
 #endif
