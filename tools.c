@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:02:09 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 06:04:10 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 08:45:51 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,6 @@ char	*get_path(char *path, char *name)
 
 void	no_dir(char *path, t_data *data, t_ls *ls)
 {
-	ft_printf("ls: %s: No such file or directory", path);
-	free(data);
-	free(ls->path);
-	free(ls);
-	exit(0);
+	ft_printf("ft_ls: %s: No such file or directory", path);
+	return ;
 }

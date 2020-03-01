@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:43:17 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 05:27:22 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 09:04:08 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	parse_data(t_data *data, struct stat *stat, t_flags *flags,
 	data->name = ft_strdup(name->d_name);
 	data->size = stat->st_size;
 	data->link = stat->st_nlink;
-	data->time_t = stat->st_mtimespec.tv_sec;
+	data->time1 = stat->st_mtimespec.tv_sec;
 	data->usid = get_usid(stat->st_uid);
 	check_len(*data, flags);
 }

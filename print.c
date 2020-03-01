@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:32:29 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 08:11:08 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 08:51:04 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,40 +57,38 @@ void	print_l(t_data *data, t_flags *flags, t_ls *ls)
 		}
 }
 
-void	init_a(t_column *a)
+void	init_a(t_column *a, t_flags *flags, t_ls *ls)
 {
 	a->columns1 = 0;
 	a->lines1 = 0;
+	a->columns = get_columns(flags);
+	a->count = ls->i;
+	a->i = 0;
+	a->j = 0;
+	a->k = 0;
 }
 
 void	just_print(t_data *data, t_flags *flags, t_ls *ls)
 {
 	t_column	a[1];
-	int		i;
-	int		k;
-	int		j;
 
-	i = 0;
-	j = 0;
-	k = 0;
-	init_a(a);
-	a->columns = get_columns(flags);
-	a->count = ls->i;
+	init_a(a, flags, ls);
 	a->lines = a->count / a->columns + ((a->count % a->columns > 0) ? 1 : 0);
 	while (a->lines1 < a->lines)
 	{
-		k = 0;
-		while (i < ls->i && k < a->columns && k * a->lines <= ls->i && k * a->lines + a->lines1 < ls->i)
+		a->k = 0;
+		while (a->i < ls->i && a->k < a->columns && a->k * a->lines <= ls->i
+		&& a->k * a->lines + a->lines1 < ls->i)
 		{
 			a->columns1 = 0;
-			ft_putstr(data[k * a->lines + a->lines1].name);
-			j = ft_strlen(data[k * a->lines + a->lines1].name);
-			while (j < flags->max_len_name)
+			ft_putstr(data[a->k * a->lines + a->lines1].name);
+			a->j = ft_strlen(data[a->k * a->lines + a->lines1].name);
+			while (a->j < flags->max_len_name)
 			{
 				write(1, " ", 1);
-				j++;
+				a->j++;
 			}
-			k++;
+			a->k++;
 		}
 		write(1, "\n", 1);
 		a->lines1++;
@@ -105,4 +103,5 @@ void	print_all(t_data *data, t_flags *flags, t_ls *ls)
 		print_l(data, flags, ls);
 	else
 		just_print(data, flags, ls);
+	ls->blocks = 0;
 }

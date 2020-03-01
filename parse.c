@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:00:58 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 08:14:00 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 08:58:11 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@ void	make_r_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 {
 	int		i;
 	int		d;
-	int		count;
 
-	if (!(ls->dir = opendir(path)))
-		no_dir(path, data, ls);
+	if (open_dir(ls) == 1)
+		return ;
 	make_ls(data, ls, flags, ls->path);
 	i = ls->i - 1;
 	d = ls->d - ls->b;
 	ls->a = d;
 	print_all(data, flags, ls);
-	count = ls->i - 1;
 	while (i > 0)
 	{
 		while (i >= 0 && ((data[i].mode[0] != 'd') ||
@@ -47,8 +45,8 @@ void	make_cycle(t_data *data, t_ls *ls, t_flags *flags, char *path)
 	int		d;
 	int		count;
 
-	if (!(ls->dir = opendir(path)))
-		no_dir(path, data, ls);
+	if (open_dir(ls) == 1)
+		return ;
 	i = 0;
 	make_ls(data, ls, flags, ls->path);
 	d = ls->d - ls->b;

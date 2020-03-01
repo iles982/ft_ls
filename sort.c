@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 22:30:31 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 08:15:10 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/01 09:03:54 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		sort_files_t(t_data *data, int max, t_ls *ls)
 		i = 0;
 		while (i < ls->i)
 		{
-			if (data[i + d].time_t - data[i + d + 1].time_t < 0)
+			if (data[i + d].time1 - data[i + d + 1].time1 < 0)
 			{
 				tmp = data[i + d];
 				data[i + d] = data[i + 1];
@@ -49,4 +49,14 @@ char		*get_path_2(char *path, char *name, t_ls *ls)
 	ls->i = 0;
 	ft_printf("\n%s:", tmp2);
 	return (tmp2);
+}
+
+int			open_dir(t_ls *ls)
+{
+	if (!(ls->dir = opendir(ls->path)))
+	{
+		ft_printf("ft_ls: %s: No such file or directory", ls->path);
+		return (1);
+	}
+	return (0);
 }
