@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:50:39 by tclarita          #+#    #+#             */
-/*   Updated: 2020/02/25 07:50:12 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/11 14:45:58 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	check_flag(t_flags *flags, char *tmp)
 			return ;
 		else
 		{
-			ft_printf("ft_ls: illegal option -- %c", tmp[i]);
+			ft_putstr("ft_ls: illegal option -- ");
+			ft_printf("%c\nusage: ft_ls [-latrR] [file ...]\n", tmp[i]);
 			exit(1);
 		}
 		i++;

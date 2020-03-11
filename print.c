@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:32:29 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 08:51:04 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:49:49 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int		get_columns(t_flags *flags)
 	int				max_size;
 	struct winsize	w;
 
+	if (((flags->max_len_name - 1) % 4 == 0) || (flags->max_len_name % 4 == 0))
+		flags->max_len_name += 1;
+	while (flags->max_len_name % 4 != 0)
+		flags->max_len_name += 1;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	col = w.ws_col;
 	max_size = flags->max_len_name;
@@ -48,7 +52,7 @@ void	print_l(t_data *data, t_flags *flags, t_ls *ls)
 		}
 	}
 	else
-		while (data[n + ls->a].name)
+		while (n < ls->b)
 		{
 			ft_printf("%s %6d %10s  %10s %6d %s %s\n", data[n + ls->a].mode,
 			data[n + ls->a].link, data[n + ls->a].usid, data[n + ls->a].grid,
@@ -90,9 +94,11 @@ void	just_print(t_data *data, t_flags *flags, t_ls *ls)
 			}
 			a->k++;
 		}
-		write(1, "\n", 1);
+		if (a->lines1 + 1 < a->lines)
+			write(1, "\n", 1);
 		a->lines1++;
 	}
+	// flags->max_len_name = 0;
 }
 
 void	print_all(t_data *data, t_flags *flags, t_ls *ls)

@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/01 09:03:47 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:57:05 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_flags
 	int				r;
 	int				rr;
 	int				i;
+	int				p;
 	long int		max_len_group;
 	long int		max_len_owner;
 	long int		max_len_links;
