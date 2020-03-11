@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:00:58 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/11 16:48:37 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/11 17:46:28 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,12 @@ void	new_parse(t_flags *flags, char *path)
 		return ;
 	}
 	closedir(ls->dir);
+	if (flags->p == 1)
+	{
+		if (flags->l == 0)
+			write(1, "\n", 1);
+		ft_printf("%s:\n", path);
+	}
 	data = (t_data *)malloc(sizeof(t_data) * 1000000);
 	ls->i = 0;
 	ls->d = 0;

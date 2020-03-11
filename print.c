@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:32:29 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/11 16:49:49 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/11 17:48:15 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	just_print(t_data *data, t_flags *flags, t_ls *ls)
 			write(1, "\n", 1);
 		a->lines1++;
 	}
-	// flags->max_len_name = 0;
+	flags->max_len_name = 0;
 }
 
 void	print_all(t_data *data, t_flags *flags, t_ls *ls)
