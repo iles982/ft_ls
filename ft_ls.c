@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:58:50 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/11 17:46:06 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/13 13:09:33 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	do_arg(t_flags *flags, char *tmp)
 {
-	t_ls		*ls;
-	t_data		**data;
-	t_data		*start;
-	char		*str;
+	t_ls			*ls;
+	t_data			**data;
+	t_data			*start;
+	char			*str;
 
 	str = tmp;
 	new_parse(flags, str);
@@ -43,8 +43,9 @@ int		main(int ac, char **av)
 		{
 			flags->p = 1;
 			do_arg(flags, av[flags->i]);
-			if ((flags->i < ac && (flags->i + 1 < ac && flags->l == 1)) || flags->l == 0)
-			write(1, "\n", 1);
+			if ((flags->i < ac && (flags->i + 1 < ac && flags->l == 1))
+			|| flags->l == 0)
+				write(1, "\n", 1);
 			flags->i++;
 		}
 }

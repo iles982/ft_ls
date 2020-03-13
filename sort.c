@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 22:30:31 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/11 16:16:58 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/13 13:13:56 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,15 @@ int			open_dir(t_ls *ls)
 		return (1);
 	}
 	return (0);
+}
+
+int			mini_init(int i, t_ls *ls, char *path)
+{
+	ls->i = 0;
+	ls->d = 0;
+	ls->a = 0;
+	ls->blocks = 0;
+	i = 0;
+	ls->path = ft_strdup(path);
+	return (i);
 }

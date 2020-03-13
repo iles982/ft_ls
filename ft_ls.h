@@ -6,7 +6,7 @@
 /*   By: tclarita <tclarita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 17:59:08 by tclarita          #+#    #+#             */
-/*   Updated: 2020/03/11 16:57:05 by tclarita         ###   ########.fr       */
+/*   Updated: 2020/03/13 13:23:16 by tclarita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,10 @@ void				print_all(t_data *data, t_flags *flags, t_ls *ls);
 void				make_ls(t_data *data, t_ls *ls, t_flags *flags, char *path);
 void				no_dir(char *path, t_data *data, t_ls *ls);
 char				*get_path_2(char *path, char *name, t_ls *ls);
-
+int					mini_init(int i, t_ls *ls, char *path);
+void				do_next(t_data *data, t_ls *ls, t_flags *flags, char *path);
+void				flag_rr(t_data *data, t_ls *ls, t_flags *flags, char *path);
+void				just_do_it(t_data *data, t_ls *ls, t_flags *flags,
+					char *path);
+void				kostil(t_flags *flags, t_ls *ls, char *name);
 #endif
