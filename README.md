@@ -1,7 +1,5 @@
 # ft_ls
-ft_ls
-
-ft_ls
+Copy of ls system's command.
 
 21 Unit Factory Project
 
